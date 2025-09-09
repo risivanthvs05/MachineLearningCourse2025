@@ -1,0 +1,1 @@
+This folder contains slides of the machine learning part of the *Introduction to AI* course. They are prerequisite for this *Machine Learning* course. Please learn them (if not already) by yourselves.
