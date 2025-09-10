@@ -1,0 +1,48 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{tikz-3dplot}
+\usepackage{bm}
+\begin{document}
+\tdplotsetmaincoords{60}{120}
+\begin{tikzpicture}[tdplot_main_coords, >=latex]
+
+  % 坐标轴
+  \draw[->] (0,0,0) -- (4,0,0) node[below] {$x$};
+  \draw[->] (0,0,0) -- (0,4,0) node[left] {$y$};
+  \draw[->] (0,0,0) -- (0,0,3) node[left] {$z$};
+
+  % 平面参数：p0 和 n
+  \pgfmathsetmacro{\px}{0}   % 平面上一点
+  \pgfmathsetmacro{\py}{0}
+  \pgfmathsetmacro{\pz}{0}
+  \pgfmathsetmacro{\nx}{0.5}  % 法向量
+  \pgfmathsetmacro{\ny}{0.3}
+  \pgfmathsetmacro{\nz}{1.0}
+
+  % 向量 y
+  \pgfmathsetmacro{\yx}{2}
+  \pgfmathsetmacro{\yy}{1.5}
+  \pgfmathsetmacro{\yz}{2.5}
+
+  % 计算投影 \hat y
+  \pgfmathsetmacro{\dotprod}{(\yx-\px)*\nx + (\yy-\py)*\ny + (\yz-\pz)*\nz}
+  \pgfmathsetmacro{\nnorm}{\nx*\nx + \ny*\ny + \nz*\nz}
+  \pgfmathsetmacro{\coef}{\dotprod/\nnorm}
+  \pgfmathsetmacro{\yhatx}{\yx - \coef*\nx}
+  \pgfmathsetmacro{\yhaty}{\yy - \coef*\ny}
+  \pgfmathsetmacro{\yhatz}{\yz - \coef*\nz}
+
+  % 平面 (用 polygon 表示一小块)
+  \filldraw[fill=blue!10,draw=blue!50,opacity=0.5]
+    (0,0,0) -- (6,0,3) -- (6,4,3) -- (0,4,0);
+
+  % 原向量 y
+  \draw[very thick, red, ->] (0,0,0) -- (\yx,\yy,\yz) node[above] {$\bm y$};
+
+  % 投影 \hat y
+  \draw[very thick, teal!70!black, ->] (0,0,0) -- (\yhatx,\yhaty,\yhatz) node[below] {$\hat{\bm y}$};
+    \node[blue] at (3,0,2) {$\mathcal M(x)$};
+  % 垂足连线
+  \draw[densely dashed, gray] (\yx,\yy,\yz) -- (\yhatx,\yhaty,\yhatz);
+
+\end{tikzpicture}
+\end{document}

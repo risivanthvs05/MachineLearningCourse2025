@@ -1,0 +1,8 @@
+*.out
+*.log
+*.bcf
+*.aux
+*.xml
+*.toc
+*.gz
+.DS_Store
