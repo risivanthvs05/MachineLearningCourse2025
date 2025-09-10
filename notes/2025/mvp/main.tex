@@ -1,0 +1,39 @@
+\documentclass[lang=en,newtx,10pt,scheme=chinese]{elegantbook}
+\usepackage{subfiles}
+\title{Machine Learning}
+
+\author{Shaoheng Yan (\href{https://www.photonyan.fun/about}{PhotonYan})}
+\institute{Institute of Artificial Intelligence, Peking University}
+\date{2025-2026 Autumn}
+\setcounter{tocdepth}{3}
+\usepackage{amsfonts}
+\cover{cover.jpg}
+\usepackage{algorithm}
+% \usepackage{algorithmic}
+\usepackage{bbold}
+\usepackage{algpseudocode}
+\usepackage{array}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\argmax}{\mathop{\text{argmax}}}
+\newcommand{\argmin}{\mathop{\text{argmin}}}
+\newcommand{\rank}{{\mathrm{rank}\,}}
+\definecolor{customcolor}{RGB}{32,178,170}
+\colorlet{coverlinecolor}{customcolor}
+\usepackage{cprotect}
+
+\addbibresource[location=local]{reference.bib}
+
+\newcommand{\var}[1]{\mathrm{Var}\,(#1)}
+\newcommand{\cov}[1]{\mathrm{Cov}\,(#1)}
+\newcommand{\E}[1]{\mathbb{E}\,(#1)}
+
+\begin{document}
+
+\maketitle
+\frontmatter
+
+\tableofcontents
+
+\mainmatter
+\subfile{chapters/1-lr.tex}
+\end{document}
