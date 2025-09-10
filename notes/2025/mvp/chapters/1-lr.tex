@@ -36,9 +36,10 @@ Quiz: How to determine $W$ and $b$?
 
 \begin{itemize}
   \item Loss function. Squared Loss (SE) is commonly used during optimization. The training objective can be written as:
-  \begin{equation}
-    \argmax_{W,b}{\color{blue}{\frac{1}{n}}}\sum_{i\in[n]}\left(y_i-(W^\top x_i+b)\right)^2
-  \end{equation}
+    \begin{equation}
+        \argmin_{W,b}{\color{blue}{\frac{1}{n}}}\sum_{i\in[n]}\left(y_i-(W^\top x_i+b)\right)^2
+      \end{equation}
+  
   The blue factor $1/n$ can be omitted in theoretical analysis, but is often kept in practice to stabilize the loss function during implementation.
 \end{itemize}
 Quiz: How to optimize the parameters?

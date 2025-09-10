@@ -1032,7 +1032,7 @@
   \ELEGANT@newtheorem{axiom}{axi}{thmstyle}
   \ELEGANT@newtheorem{corollary}{cor}{thmstyle}
   \ELEGANT@newtheorem{lemma}{lem}{thmstyle}
-  \ELEGANT@newtheorem{proposition}{pro}{prostyle}
+  \ELEGANT@newtheorem{proposition}{pro}{thmstyle}
 }{\relax}
 
 
