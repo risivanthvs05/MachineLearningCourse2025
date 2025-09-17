@@ -196,9 +196,12 @@ Although logistic regression may suffer from divergence of parameters under sepa
 \begin{example}
   \textbf{Multi-Class Classificaiton (Softmax Regression)}
 \end{example}
-We can just combined $k$ sub-classifier to solve a $k$-Class classification task. That is, we continue appling sigmoid onto each sub-linear model $f_k(x)=w^\top_kx+b_k$, and output probability of class $k$ with an unified value:
+We can combine $k$ sub-classifiers to solve a $k$-class classification task. 
+Specifically, we apply a sigmoid-like transformation to each sub-linear model 
+$f_k(x) = w_k^\top x + b_k$, and obtain the probability of class $k$ using a normalized expression:
 \begin{equation}
-    P(y=k\mid x)=\frac{\exp(w^\top_kx+b_k)}{\sum_{j\in[k]}\exp(w^\top_kx+b_k)}
+    P(y = k \mid x) 
+    = \frac{\exp(w_k^\top x + b_k)}{\sum_{j=1}^{k} \exp(w_j^\top x + b_j)}.
 \end{equation}
 \begin{note}
   There is a close analogy between \textbf{softmax regression} in machine learning and the \textbf{partition function} in statistical physics.
@@ -215,27 +218,34 @@ We can just combined $k$ sub-classifier to solve a $k$-Class classification task
 
   In statistical physics, for a system with possible states $s$ of energy $E(s)$, the probability of observing state $s$ under the Boltzmann distribution is
   \begin{equation}
-    P(s) \;=\; \frac{\exp(-\beta E(s))}{Z}, 
+    P(s) \;=\; \frac{\exp(-\beta E(s))}{Z}\;=\;-\frac{1}{\beta}\frac{\partial \log Z}{\partial E(s)}, 
     \quad Z \;=\; \sum_{s} \exp(-\beta E(s)) ,
   \end{equation}
   where $Z$ is the \emph{partition function}. It normalizes the distribution and encodes all thermodynamic properties of the system.
 
-  Thus, the role of $Z(x)$ in softmax regression is mathematically analogous to the role of the partition function $Z$ in statistical physics: both are log-sum-exp normalizers that transform unnormalized ``scores'' (energies or logits) into proper probability distributions.
+  Thus, the role of $Z(x)$ in softmax regression is mathematically analogous to the role of the partition function $Z$ in statistical physics: both are log-sum-exp normalizers that transform unnormalized scores (energies or logits) into proper probability distributions.
 \end{note}
+\vspace{1em}
 The softmax regression method has several advantages:
 \begin{enumerate}
-  \item It is unified: $\sum_{j\in[j]}P(y=k\mid x)=1$;
+  \item It is unified and normalized: $\sum_{j\in[j]}P(y=k\mid x)=1$;
   \item The amplify effect of $\exp$ function: when $f_k(x)\gg f_j(x),\forall j\neq k$, then $P(y=k\mid x)=1$.
 \end{enumerate}
-We execute the same MLE process onto the multi-class classification task, so that we are trying to optimize:
+We apply the same MLE procedure to the multi-class classification task, 
+which leads to the following optimization problem:
 \begin{equation}
-    \argmax_{\{w_k,b_k\}}\sum_{i\in[n]}\frac{\exp(w^\top_kx+b_k)}{\sum_{j\in[k]}\exp(w^\top_kx+b_k)}
+    \argmax_{\{w_k,b_k\}} \sum_{i\in[n]} 
+    \log \frac{\exp(w_k^\top x_i + b_k)}{\sum_{j=1}^{k} \exp(w_j^\top x_i + b_j)}.
 \end{equation}
+
 \begin{note}
-  In modern NN area, we execute the same softmax regression as the standard classification method.
+  In modern neural networks, softmax regression is widely used 
+  as the standard classification method.
 \end{note}
+
 \begin{remark}
-  When $k\to 2$, softmax regression can reparamization to logistic regression by setting $w=w_1-w_2$ and $b=b_1-b_2$.
+  When $k=2$, softmax regression reduces to logistic regression 
+  via the reparameterization $w = w_1 - w_2$ and $b = b_1 - b_2$.
 \end{remark}
 \begin{example}
   \textbf{MLE Explanation for Linear Regression}
