@@ -20,4 +20,4 @@ Please never post your answers to assignments/labs/exams.
 https://disk.pku.edu.cn/link/AA61A92A21D0404370B153E970F17D6F6F
 
 ## 通知
-2025.9.17 【通知】第一次课后练习已发布，DDL为9.24（周三）晚11:59，请大家按时完成
+2025.9.17 【通知】第一次课后练习已发布，DDL为10.1（周三）晚11:59，请大家按时完成
