@@ -3,7 +3,10 @@
 
 \chapter{Logistic Regression}
 \begin{introduction}
-\item 
+\item Binary Classification Problem
+\item Cross Entropy
+\item Sigmoid Regression
+\item Maximum a posteriori
 \end{introduction}
 \begin{example}
   \textbf{Binary Classification Problem}
@@ -175,7 +178,10 @@ By gradient descent, the parameter is updated as$
   \hat w \;\leftarrow\; \hat w + \alpha \sum_{i \in [n]} \Big(y_i - P(y_i=1 \mid x_i)\Big)\,\hat x_i .$
 This makes sense, since the term $y_i - P(y_i=1 \mid x_i)$ directly measures the prediction error on sample $i$, and the update moves $\hat w$ a small step along the direction of the input $\hat x_i$ to reduce this error.
 
-If for all $i$, we have $y_i = P(y=1 \mid x_i)$, then the model predicts every label $y_i$ perfectly. At this point, optimization reaches a stationary solution. If the training data admits such a perfect solution, that is, if all points can be separated by a linear model without error, we say the dataset is \textbf{linearly separable}.
+If for all $i$, we have $y_i = P(y=1 \mid x_i)$, then the model predicts every label $y_i$ perfectly. At this point, optimization reaches a stationary solution. If the training data admits such a perfect solution:
+\begin{definition}[linearly separable]
+  If all points can be separated by a linear model without error, we say the dataset is {linearly separable}.
+\end{definition}
 
 Example \ref{2-lr} is linearly separable, and the final state leads to $\|W\| \to \infty, \quad \|b\| \to \infty$. However, this situation is not desirable in practice, since it implies poor robustness. Hence a natural question arises: under the condition of linear separability, how can we find a well-chosen separating hyperplane that maximizes robustness? The answer will be presented in the next chapter, where we introduce the Support Vector Machine (SVM). The SVM optimizes $\hat w, \hat b$ by maximizing the margin (the distance between data points and the separating hyperplane), instead of simply minimizing the cross-entropy loss.
 
@@ -187,4 +193,133 @@ Although logistic regression may suffer from divergence of parameters under sepa
 \begin{remark}
   Why can't we use squared loss for classification? The reason is that in classification tasks such as logistic regression, the label $y \in \{0,1\}$ should be interpreted as a categorical outcome rather than a numerical quantity. 
 \end{remark}
+\vspace{1em}
+
+\begin{example}
+  \textbf{Multi-Class Classificaiton (Softmax Regression)}
+\end{example}
+We can just combined $k$ sub-classifier to solve a $k$-Class classification task. That is, we continue appling sigmoid onto each sub-linear model $f_k(x)=w^\top_kx+b_k$, and output probability of class $k$ with an unified value:
+\begin{equation}
+    P(y=k\mid x)=\frac{\exp(w^\top_kx+b_k)}{\sum_{j\in[k]}\exp(w^\top_kx+b_k)}
+\end{equation}
+\begin{note}
+  There is a close analogy between \textbf{softmax regression} in machine learning and the \textbf{partition function} in statistical physics.
+
+  In softmax regression, the probability of assigning an input $x$ to class $k$ is
+  \begin{equation}
+    P(y=k \mid x) \;=\; \frac{\exp(\theta_k^\top x)}{\sum_{j=1}^K \exp(\theta_j^\top x)} .
+  \end{equation}
+  Here the denominator
+  \begin{equation}
+    Z(x) \;=\; \sum_{j=1}^K \exp(\theta_j^\top x)
+  \end{equation}
+  serves as a \emph{normalizing constant}, ensuring that the probabilities over all classes sum to $1$.
+
+  In statistical physics, for a system with possible states $s$ of energy $E(s)$, the probability of observing state $s$ under the Boltzmann distribution is
+  \begin{equation}
+    P(s) \;=\; \frac{\exp(-\beta E(s))}{Z}, 
+    \quad Z \;=\; \sum_{s} \exp(-\beta E(s)) ,
+  \end{equation}
+  where $Z$ is the \emph{partition function}. It normalizes the distribution and encodes all thermodynamic properties of the system.
+
+  Thus, the role of $Z(x)$ in softmax regression is mathematically analogous to the role of the partition function $Z$ in statistical physics: both are log-sum-exp normalizers that transform unnormalized ``scores'' (energies or logits) into proper probability distributions.
+\end{note}
+The softmax regression method has several advantages:
+\begin{enumerate}
+  \item It is unified: $\sum_{j\in[j]}P(y=k\mid x)=1$;
+  \item The amplify effect of $\exp$ function: when $f_k(x)\gg f_j(x),\forall j\neq k$, then $P(y=k\mid x)=1$.
+\end{enumerate}
+We execute the same MLE process onto the multi-class classification task, so that we are trying to optimize:
+\begin{equation}
+    \argmax_{\{w_k,b_k\}}\sum_{i\in[n]}\frac{\exp(w^\top_kx+b_k)}{\sum_{j\in[k]}\exp(w^\top_kx+b_k)}
+\end{equation}
+\begin{note}
+  In modern NN area, we execute the same softmax regression as the standard classification method.
+\end{note}
+\begin{remark}
+  When $k\to 2$, softmax regression can reparamization to logistic regression by setting $w=w_1-w_2$ and $b=b_1-b_2$.
+\end{remark}
+\begin{example}
+  \textbf{MLE Explanation for Linear Regression}
+\end{example}
+\begin{definition}[Gaussian/Normal Distribution]
+    \begin{equation}
+        x\sim\mathcal N(\mu,\sigma^2)\quad\Leftrightarrow\quad P(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+    \end{equation}
+\end{definition}
+\begin{figure}[H]
+  \centering
+  \includegraphics{../../tikz/2/3.pdf}
+  \caption{Normal distribution (95\%).}
+  \label{2-lr}
+\end{figure}
+While the Central Limit Theorem (CLT) does not imply that most datasets are normally distributed, 
+it motivates modeling additive noise as Gaussian. We assume
+\begin{equation}
+  y \;=\;
+  \underbrace{w^\top x + b}_{\text{latent model}}
+  \;+\;
+  \underbrace{\varepsilon}_{\text{noise}}, 
+  \quad \varepsilon \sim \mathcal N(0,\sigma^2),
+\end{equation}
+where $\sigma^2$ is a hyperparameter characterizing the noise scale. Then
+\begin{equation}
+  P(y \mid x; w,b,\sigma^2) \;=\; \mathcal N\!\big(y \,\big|\, w^\top x + b,\; \sigma^2\big).
+\end{equation}
+
+The log-likelihood takes the form
+\begin{align}
+  \argmax_{w,b}\; \sum_{i\in[n]}\log \mathcal N\!\big(y_i \,\big|\, w^\top x_i + b,\; \sigma^2\big)
+  &= \argmax_{w,b}\; \sum_{i\in[n]}
+     \left[
+       -\tfrac{1}{2}\log(2\pi\sigma^2)
+       - \frac{\big(y_i-(w^\top x_i+b)\big)^2}{2\sigma^2}
+     \right]\notag\\
+  &\;\Leftrightarrow\; \argmin_{w,b}\; \sum_{i\in[n]}\big(y_i-(w^\top x_i+b)\big)^2, \label{2.24}
+\end{align}
+where the equivalence follows by dropping constants and positive scalings. 
+Equation~\eqref{2.24} recovers ERM with the squared-loss objective.
+\begin{example}\textbf{Maximum a Posteriori (MAP)}
+\end{example}
+  In the MLE perspective, $w$ and $b$ are treated as unknown fixed constants. 
+  In the Bayesian framework, however, even $w,b$ are considered as random variables (R.V.). 
+  A “fixed constant” can be seen as a random variable with an extremely sharp distribution.
+  
+  Suppose we place a Gaussian prior $
+    P(\hat w) = \mathcal N(\hat w \mid 0,\; \sigma_w^2 \mathbb I)$.
+  The likelihood is given by
+  \begin{equation}
+      P(y \mid x, \hat w;\, \sigma^2, \sigma_w^2) = \mathcal N\!\big(y \mid \hat w^\top \hat x,\; \sigma^2\big)
+  \end{equation}
+  
+  We want to compute the posterior distribution of $\hat w$. By Bayes' rule:
+  \begin{align*}
+    P(\hat w \mid y,x) 
+    &= \frac{P(y \mid x, \hat w)\, P(\hat w)}{P(y \mid x)} \\
+    &\propto \left( \prod_{i\in[n]} P(y_i \mid x_i, \hat w) \right) P(\hat w)
+  \end{align*}
+  
+  Expanding this expression:
+  \begin{align*}
+    P(\hat w \mid y,x) 
+    &= \frac{1}{Z}
+       \left(\frac{1}{\sqrt{2\pi\sigma^2}}\right)^n
+       \exp\!\left(-\frac{1}{2\sigma^2}\sum_{i\in[n]} \big(y_i-\hat w^\top \hat x_i\big)^2\right) 
+       \left(\frac{1}{\sqrt{2\pi\sigma_w^2}}\right)^{d+1}
+       \exp\!\left(-\frac{\hat w^\top \hat w}{2\sigma_w^2}\right)
+  \end{align*}
+  
+  Taking the negative logarithm of the posterior:
+  \[
+    -\log P(\hat w \mid y,x) 
+    = \sum_{i\in[n]} \big(y_i-\hat w^\top \hat x_i\big)^2 
+      + \frac{\sigma^2}{\sigma_w^2} \|\hat w\|^2 + \text{Const}.
+  \]
+  
+  Letting $\lambda = \sigma^2/\sigma_w^2$, the MAP estimator is obtained by
+  \begin{equation}
+      \argmin_{\hat w} \sum_{i\in[n]} \big(y_i-\hat w^\top \hat x_i\big)^2 + \lambda \|\hat w\|^2,
+  \end{equation}
+  which is exactly ridge regression.
+
 \end{document}
