@@ -17,4 +17,6 @@ Please never post your answers to assignments/labs/exams.
 
 ## 课堂实录链接
 目前研究生在教学网上无法访问课堂实录，我们将课堂实录用北大网盘进行共享，大家可以通过以下链接访问：
-https://disk.pku.edu.cn/link/AR22370FAD60EC4E5F9BF948688CA764FF
+https://disk.pku.edu.cn/link/AA61A92A21D0404370B153E970F17D6F6F
+文件夹名：机器学习-课堂录播
+有效期限：2026-03-17 00:00
