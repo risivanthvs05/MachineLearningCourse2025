@@ -235,7 +235,7 @@ We apply the same MLE procedure to the multi-class classification task,
 which leads to the following optimization problem:
 \begin{equation}
     \argmax_{\{w_k,b_k\}} \sum_{i\in[n]} 
-    \log \frac{\exp(w_k^\top x_i + b_k)}{\sum_{j=1}^{k} \exp(w_j^\top x_i + b_j)}.
+    \log \frac{\exp(w_k^\top x_i + b_k)}{\sum_{j=1}^{k} \exp(w_j^\top x_i + b_j)}
 \end{equation}
 
 \begin{note}
@@ -262,20 +262,20 @@ which leads to the following optimization problem:
   \label{2-lr}
 \end{figure}
 While the Central Limit Theorem (CLT) does not imply that most datasets are normally distributed, 
-it motivates modeling additive noise as Gaussian. We assume
+it motivates modeling additive noise as Gaussian. We assume:
 \begin{equation}
   y \;=\;
   \underbrace{w^\top x + b}_{\text{latent model}}
   \;+\;
-  \underbrace{\varepsilon}_{\text{noise}}, 
-  \quad \varepsilon \sim \mathcal N(0,\sigma^2),
+  \underbrace{\varepsilon}_{\text{noise}},
+  \quad \varepsilon \sim \mathcal N(0,\sigma^2)
 \end{equation}
-where $\sigma^2$ is a hyperparameter characterizing the noise scale. Then
+where $\sigma^2$ is a hyperparameter characterizing the noise scale. Then:
 \begin{equation}
-  P(y \mid x; w,b,\sigma^2) \;=\; \mathcal N\!\big(y \,\big|\, w^\top x + b,\; \sigma^2\big).
+  P(y \mid x; w,b,\sigma^2) \;=\; \mathcal N\!\big(y \,\big|\, w^\top x + b,\; \sigma^2\big)
 \end{equation}
 
-The log-likelihood takes the form
+The log-likelihood takes the form:
 \begin{align}
   \argmax_{w,b}\; \sum_{i\in[n]}\log \mathcal N\!\big(y_i \,\big|\, w^\top x_i + b,\; \sigma^2\big)
   &= \argmax_{w,b}\; \sum_{i\in[n]}
@@ -291,7 +291,7 @@ Equation~\eqref{2.24} recovers ERM with the squared-loss objective.
 \end{example}
   In the MLE perspective, $w$ and $b$ are treated as unknown fixed constants. 
   In the Bayesian framework, however, even $w,b$ are considered as random variables (R.V.). 
-  A “fixed constant” can be seen as a random variable with an extremely sharp distribution.
+  A  ``fixed constant'' can be seen as a random variable with an extremely sharp distribution (near $\delta$-distribution).
   
   Suppose we place a Gaussian prior $
     P(\hat w) = \mathcal N(\hat w \mid 0,\; \sigma_w^2 \mathbb I)$.
@@ -317,17 +317,17 @@ Equation~\eqref{2.24} recovers ERM with the squared-loss objective.
        \exp\!\left(-\frac{\hat w^\top \hat w}{2\sigma_w^2}\right)
   \end{align*}
   
-  Taking the negative logarithm of the posterior:
+  Taking the negative logarithm of the posterior, note that only the terms involving $\hat w$ are subject to optimization:
   \[
     -\log P(\hat w \mid y,x) 
     = \sum_{i\in[n]} \big(y_i-\hat w^\top \hat x_i\big)^2 
       + \frac{\sigma^2}{\sigma_w^2} \|\hat w\|^2 + \text{Const}.
   \]
   
-  Letting $\lambda = \sigma^2/\sigma_w^2$, the MAP estimator is obtained by
+  Letting $\lambda = \sigma^2/\sigma_w^2$, the MAP estimator is obtained by:
   \begin{equation}
       \argmin_{\hat w} \sum_{i\in[n]} \big(y_i-\hat w^\top \hat x_i\big)^2 + \lambda \|\hat w\|^2,
   \end{equation}
-  which is exactly ridge regression.
+  which is exactly ridge regression. Therefore, the internal consistency of the theory is demonstrated.
 
 \end{document}
