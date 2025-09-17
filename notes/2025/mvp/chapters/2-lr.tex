@@ -15,8 +15,7 @@ Settings.
 \begin{itemize}
   \item Dataset: $D=\{(x_i,y_i)\}_{i=1}^n$, where $x_i\in\mathbb{R}^d$ and $y_i\in\{0,1\}$.  
   Here, $y_i$ denotes the classification target, while $x_i$ represents the input features used to predict $y_i$.
-  \item Model in Logistic Regression: In logistic regression, we start with a linear model $
-  f(x) = w^\top x + b$
+  \item Model in Logistic Regression: In logistic regression, we start with a linear model $f(x) = w^\top x + b$.
   Unlike in ordinary regression, where the target variable lies in $\mathbb{R}$, here the target space collapses to $\{0,1\}$. Thus, we need a function that maps real-valued outputs into this discrete set. Moreover, in many applications it is desirable to obtain not only a hard classification decision (0 or 1), but also a \emph{soft} prediction: the probability of each class. Such a probabilistic interpretation provides both the likelihood estimate and the corresponding classification outcome.
 \end{itemize}
 Can we directly use a linear model to fit $p(y=1 \mid x=x_i)$, as we did in the previous chapter? The answer is \emph{no}. This is because there is a mismatch between the range of a linear model output (which lies in $\mathbb{R}$) and the valid domain of probabilities, $[0,1]$. 
@@ -24,7 +23,7 @@ Can we directly use a linear model to fit $p(y=1 \mid x=x_i)$, as we did in the 
 To resolve this issue, we introduce a transformation function called the \textbf{sigmoid} function. The sigmoid maps any real-valued input into the interval $[0,1]$, making it suitable for modeling probabilities. It is defined as:
 \begin{definition}[Sigmoid Function]
   \begin{equation}
-    \sigma(z) = \frac{1}{1 + e^{-z}} .
+    \sigma(z) = \frac{1}{1 + e^{-z}}
 \end{equation}
 \end{definition}
 
@@ -38,7 +37,7 @@ The sigmoid function enjoys several elegant properties.
 
 \begin{theorem}
 \[
-1 - \sigma(z) = \sigma(-z) .
+1 - \sigma(z) = \sigma(-z)
 \]
 \end{theorem}
 
@@ -83,12 +82,12 @@ MLE is naturally designed to address probability modeling problems.
 \begin{definition}[Likelihood]
   The likelihood on the entire training data is defined as
   \begin{equation}
-      \prod_{i \in [n]} P(y_i \mid x_i; w, b),
+      \prod_{i \in [n]} P(y_i \mid x_i; w, b)
   \end{equation}
   assuming the samples are independent.
 \end{definition}
 
-According to the discussion above, in logistic regression we have
+According to the discussion above, in logistic regression we :
 \begin{equation}
     P(y_i \mid x_i) =
     \begin{cases}
@@ -97,12 +96,11 @@ According to the discussion above, in logistic regression we have
     \end{cases}
 \end{equation}
 
-Therefore, the likelihood function can be expanded as
+Therefore, the likelihood function can be expanded as:
 \begin{equation}
   \prod_{i \in [n]} \sigma(w^\top x_i + b)^{y_i} \,
   \big(1 - \sigma(w^\top x_i + b)\big)^{1-y_i}
 \end{equation}
-
 The above form is intuitive once we recall that $x^0 = 1$.
 
 To ensure floating-point precision, given the large amount of data and the monotonicity of the logarithm function, 
@@ -114,8 +112,7 @@ we transform the likelihood into the maximization of the log-likelihood:
 \end{equation}
 This is the final objective in MLE.
 
-MLE can be transformed into ERM by applying $\argmin$ to the negative log-likelihood. 
-Thus we define the \textbf{Cross-entropy Loss}:
+MLE can be transformed into ERM by applying $\argmin$ to the negative log-likelihood. We define the \textbf{Cross-entropy Loss}:
 \begin{equation}
     \mathcal{L}(w,b) 
     := - \sum_{i \in [n]} \Big[ 
@@ -123,6 +120,7 @@ Thus we define the \textbf{Cross-entropy Loss}:
       + (1-y_i) \log \big(1 - \sigma(w^\top x_i + b)\big) 
     \Big]
 \end{equation}
+Thus, minimizing the cross-entropy loss is equivalent to maximizing the log-likelihood, making the equivalence between MLE and ERM immediate
 \begin{note}
   Why is the above loss called the {Cross-entropy loss}? 
   The name originates from information theory. 
@@ -139,7 +137,7 @@ Thus we define the \textbf{Cross-entropy Loss}:
       P(y=\hat y_i \mid x_i)\,\log P(y=\hat y_i \mid x_i)\notag\\
       &=-[P(y=1\mid x_i)\,\log P(y=1\mid x_i)+P(y=0 \mid x_i)\,\log P(y=0 \mid x_i)]
   \end{align}
-  Notice that $P(y=1 \mid x_i) = \sigma(f(x_i; w,b))$ and $P(y=0 \mid x_i) = 1 - \sigma(f(x_i; w,b))$. In practice, we substitute the empirical distribution of samples for the true distribution when comparing the negative log-likelihood with entropy. This is why the terminology of entropy from information theory is carried over to name this loss term.
+  Notice that under our estimation, $P(y=1 \mid x_i) = \sigma(f(x_i; w,b))$ and $P(y=0 \mid x_i) = 1 - \sigma(f(x_i; w,b))$. In practice, we substitute the empirical distribution of samples for the true distribution when comparing the negative log-likelihood with entropy. This is why the terminology of entropy from information theory is carried over to name this loss term.
 \end{note}
 \begin{note}
   The formal definition of cross entropy between two propbability distributions $q$ and $p$ $H(q,p)$ is defined by:
@@ -161,7 +159,7 @@ In particular, $\mathrm{KL}(q \Vert p)$ differs from the cross-entropy by only a
 In other words, KL-Divergence quantifies the extra number of bits required when we use $p$ to approximate the ground-truth distribution $q$.
 
 \vspace{1em}
-Back to the main content. Rewind that closed-form solution can be extract from linear regression problem as we mensioned in last chapter, we hope to find out whether logistic regression has closed form solution.
+Back to the main content. Recall that a closed-form solution can be derived for the linear regression problem, as mentioned in the previous chapter. Here, we would like to investigate whether logistic regression also admits a closed-form solution.
 
 Following the same steps we applied in linear case, we define $\hat x=(x^\top,1)^\top\in\mathbb R^{d+1}$ and $\hat w=(w^\top,b)^{\top}\in\mathbb R^{d+1}$, thus $f(x)=\hat w^\top \hat x$:
 \begin{align}
@@ -169,12 +167,12 @@ Following the same steps we applied in linear case, we define $\hat x=(x^\top,1)
   &=-\sum_{i\in[n]}y_i\log\frac{1+\exp(\hat w^\top\hat x_i)}{1+\exp(-\hat w^\top\hat x_i)}-\log(1+\exp(\hat w^\top\hat x_i))\notag\\
   &=-\sum_{i\in[n]}y_i(\hat w^\top\hat x_i)-\log(1+\exp(\hat w^\top\hat x_i))
 \end{align}
-Dereviate:
+Take the derivative:
 \begin{align}
   \frac{\partial\mathcal L(\hat w)}{\partial \hat w}&=-\sum_{i\in[n]}\left[y_i\hat x_i-\frac{\exp(\hat w^\top\hat x_i)}{1+\exp(\hat w^\top\hat x_i)}\hat x_i\right]\\
   &=-\sum_{i\in [n]}\left[y_i-P(y=1\mid x_i)\right]\hat x_i
 \end{align}
-By gradient descent, the parameter is updated as$
+By gradient descent, the parameter is updated as $
   \hat w \;\leftarrow\; \hat w + \alpha \sum_{i \in [n]} \Big(y_i - P(y_i=1 \mid x_i)\Big)\,\hat x_i .$
 This makes sense, since the term $y_i - P(y_i=1 \mid x_i)$ directly measures the prediction error on sample $i$, and the update moves $\hat w$ a small step along the direction of the input $\hat x_i$ to reduce this error.
 
